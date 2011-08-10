@@ -1,8 +1,9 @@
 package cz.ic.resurrection.heroic;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -25,12 +26,12 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public static final int STATE_WIN = 5;
         private int gameState;
         
-        private Bitmap imageBoard;
+        private ArrayList<GameObject> gameObject;
 
         private int canvasHeight = 1;
         private int canvasWidth = 1;
 
-        private Handler handler;
+        //private Handler handler;
         private Context gameContext;
 
         /** Used to figure out elapsed time between frames */
@@ -48,16 +49,14 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         	Log.w(GameCore.LOG_TAG, "Thread created");
         	
             this.surfaceHolder = surfaceHolder;
-            this.handler = handler;
+            //this.handler = handler; // now is not useful
             gameContext = context;
  
             Resources res = context.getResources();
 
-            //mLanderImage = context.getResources().getDrawable(
-            //        R.drawable.lander_plain);
-
-            imageBoard = BitmapFactory.decodeResource(res,
-                    R.drawable.board_marble);
+            gameObject = new ArrayList<GameObject>();
+            
+            gameObject.add(new ChessBoard(context, R.drawable.board_marble));
 
             //mLanderWidth = mLanderImage.getIntrinsicWidth();
             //mLanderHeight = mLanderImage.getIntrinsicHeight();
@@ -291,9 +290,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             // Draw the background image. Operations on the Canvas accumulate
             // so this is like clearing the screen.
             
-        	canvas.drawBitmap(imageBoard, 
-        					  0, 
-        					  (canvasHeight - imageBoard.getHeight()) / 2, null);
+        	for(GameObject o : gameObject)
+        	{
+        		o.draw(canvas);
+        	}
 
             //canvas.save();
             //canvas.rotate();
@@ -305,15 +305,14 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             if (timeLast > now) return;
 
-            //double elapsed = (now - mLastTime) / 1000.0;
+            double elapsed = (now - timeLast) / 1000.0;
 
             timeLast = now;
             
-            /* if game over    int result = STATE_LOSE;
-
-               if win        result = STATE_WIN;   doStart();    
-               setState(result, message); 
-            */
+            for(GameObject o : gameObject)
+        	{
+        		o.update(elapsed);
+        	}
             
         }
     }

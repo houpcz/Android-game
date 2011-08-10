@@ -11,8 +11,26 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int board_marble=0x7f020000;
-        public static final int icon=0x7f020001;
+        public static final int b_archer=0x7f020000;
+        public static final int b_cavalery=0x7f020001;
+        public static final int b_cleric=0x7f020002;
+        public static final int b_infantry=0x7f020003;
+        public static final int b_king=0x7f020004;
+        public static final int b_mage=0x7f020005;
+        public static final int b_summoner=0x7f020006;
+        public static final int b_thief=0x7f020007;
+        public static final int b_wall=0x7f020008;
+        public static final int board_marble=0x7f020009;
+        public static final int icon=0x7f02000a;
+        public static final int w_archer=0x7f02000b;
+        public static final int w_cavalery=0x7f02000c;
+        public static final int w_cleric=0x7f02000d;
+        public static final int w_infantry=0x7f02000e;
+        public static final int w_king=0x7f02000f;
+        public static final int w_mage=0x7f020010;
+        public static final int w_summoner=0x7f020011;
+        public static final int w_thief=0x7f020012;
+        public static final int w_wall=0x7f020013;
     }
     public static final class id {
         public static final int game=0x7f050000;
