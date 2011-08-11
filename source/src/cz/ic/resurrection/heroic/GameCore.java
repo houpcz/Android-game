@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import cz.ic.resurrection.heroic.GameView.GameThread;
 
 public class GameCore extends Activity {
 		public static final String LOG_TAG = "heroicquest";
@@ -44,6 +43,8 @@ public class GameCore extends Activity {
 	        Log.w(LOG_TAG, "onCreate");
 	        
 	        gameView = (GameView) findViewById(R.id.game);
+	        
+	        gameView.createThread();
 	        gameThread = gameView.getThread();
 
 	        if (savedInstanceState == null) {
@@ -64,7 +65,7 @@ public class GameCore extends Activity {
 	    protected void onPause() {
 	        super.onPause();
 	        Log.w(LOG_TAG, "onPause");
-	        gameView.getThread().pause(); // pause game when Activity pauses
+	        gameThread.pause(); // pause game when Activity pauses
 	    }
 	    
 	    protected void onStop()
@@ -72,7 +73,20 @@ public class GameCore extends Activity {
 	    	super.onStop();
 	    	Log.w(LOG_TAG, "onStop");
 	    }
+	    
+	    protected void onRestart()
+	    {
+	    	super.onRestart();
+	    	Log.w(LOG_TAG, "onRestart");
+	    	gameView.createThread();
+	        gameThread = gameView.getThread();
+	    }
 
+	    protected void onResume()
+	    {
+	    	super.onResume();
+	    	Log.w(LOG_TAG, "onResume");
+	    }
 	    /**
 	     * Notification that something is about to happen, to give the Activity a
 	     * chance to save state.
