@@ -9,9 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
 public class BoardView extends GameObjectView {
-	Board board;
-	ArrayList<BoardTouchListener> touchListener;
-	int FIGURE_WIDTH = 30;
+	private Board board;
+	private ArrayList<BoardTouchListener> touchListener;
+	private int FIGURE_WIDTH = 30;
 	
 	public BoardView(Context context)
 	{
@@ -103,5 +103,9 @@ public class BoardView extends GameObjectView {
 	public void setNewGame(Board board) {
 		this.board = board;
 		touchListener.clear();
+	}
+
+	public void setCanvasSize(int canvasWidth, int canvasHeight) {		
+		setPos(0, (canvasHeight - imageHeight) / 2);
 	}
 }

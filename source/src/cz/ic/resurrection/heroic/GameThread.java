@@ -11,19 +11,18 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 
-	class GameThread extends Thread {
-        public static final int STATE_LOSE = 1;
-        public static final int STATE_PAUSE = 2;
-        public static final int STATE_READY = 3;
-        public static final int STATE_RUNNING = 4;
-        public static final int STATE_WIN = 5;
-        private int gameState;
+class GameThread extends Thread {
+    public static final int STATE_LOSE = 1;
+    public static final int STATE_READY = 3;
+    public static final int STATE_RUNNING = 4;
+    public static final int STATE_WIN = 5;
+    private int gameState;
  
-        private int canvasHeight = 1;
-        private int canvasWidth = 1;
+    private int canvasHeight = 1;
+    private int canvasWidth = 1;
 
-        //private Handler handler;
-    private Context gameContext;
+    //private Handler handler;
+
     Heroic heroic;
     HeroicView heroicView;
 
@@ -43,7 +42,6 @@ import android.view.SurfaceHolder;
     	
         this.surfaceHolder = surfaceHolder;
         //this.handler = handler; // now is not useful
-        gameContext = context;
         
         heroic = new Heroic();
         heroicView = new HeroicView(heroic, context);
@@ -71,12 +69,9 @@ import android.view.SurfaceHolder;
         }
     }
 
-    /**
-     * Pauses the physics update & animation.
-     */
     public void pause() {
         synchronized (surfaceHolder) {
-            if (gameState == STATE_RUNNING) setState(STATE_PAUSE);
+            
         }
     }
 
@@ -89,7 +84,7 @@ import android.view.SurfaceHolder;
      */
     public synchronized void restoreState(Bundle savedState) {
         synchronized (surfaceHolder) {
-            setState(STATE_PAUSE);
+            setState(STATE_READY);
             // Restore state from bundle         
         }
     }
@@ -200,8 +195,7 @@ import android.view.SurfaceHolder;
             canvasWidth = width;
             canvasHeight = height;
 
-            //mBackgroundImage = Bitmap.createScaledBitmap(
-            //        mBackgroundImage, width, height, true);
+            heroicView.setCanvasSize(canvasWidth, canvasHeight);
         }
     }
 
@@ -225,24 +219,6 @@ import android.view.SurfaceHolder;
      */
     boolean doKeyDown(int keyCode, KeyEvent msg) {
         synchronized (surfaceHolder) {
-            boolean okStart = false;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) okStart = true;
-            if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) okStart = true;
-            if (keyCode == KeyEvent.KEYCODE_S) okStart = true;
-
-            if (okStart
-                    && (gameState == STATE_READY || gameState == STATE_LOSE || gameState == STATE_WIN)) {
-                // ready-to-start -> start
-                doStart();
-                return true;
-            } else if (gameState == STATE_PAUSE && okStart) {
-                // paused -> running
-                unpause();
-                return true;
-            } else if (gameState == STATE_RUNNING) {
-                
-            }
-
             return false;
         }
     }

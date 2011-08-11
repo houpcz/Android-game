@@ -9,7 +9,7 @@ public class HeroicView {
 	Heroic heroic;
 	
 	BoardView boardView;
-	
+
 	public HeroicView(Heroic heroic, Context context)
 	{
 		this.heroic = heroic;
@@ -29,5 +29,9 @@ public class HeroicView {
 	public BoardView getBoardView()
 	{
 		return boardView;
+	}
+
+	public void setCanvasSize(int canvasWidth, int canvasHeight) {
+		boardView.setCanvasSize(canvasWidth, canvasHeight);
 	}
 }

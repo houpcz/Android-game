@@ -97,7 +97,7 @@ public class GameCore extends Activity {
 	    protected void onSaveInstanceState(Bundle outState) {
 	        // just have the View's thread save its state into our Bundle
 	        super.onSaveInstanceState(outState);
-	        gameThread.saveState(outState);
+	        //gameThread.saveState(outState);
 	        
 	        Log.w(LOG_TAG, "SIS called");
 	    }
