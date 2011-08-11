@@ -1,6 +1,7 @@
 package cz.ic.resurrection.heroic;
 
 import android.util.Log;
+import cz.ic.resurrection.heroic.figure.Archer;
 import cz.ic.resurrection.heroic.figure.Bishop;
 import cz.ic.resurrection.heroic.figure.BoardPos;
 import cz.ic.resurrection.heroic.figure.Figure;
@@ -10,6 +11,7 @@ import cz.ic.resurrection.heroic.figure.Knight;
 
 public class Board {
 	// Positive are light
+	public static final byte FIG_ARCHER = 4;
 	public static final byte FIG_KNIGHT = 3;
 	public static final byte FIG_BISHOP = 2;
 	public static final byte FIG_KING = 1; // 1 white king, -1 black king 
@@ -30,6 +32,7 @@ public class Board {
 		figure[FIG_KING] = new King();
 		figure[FIG_BISHOP] = new Bishop();
 		figure[FIG_KNIGHT] = new Knight();
+		figure[FIG_ARCHER] = new Archer();
 	}
 	
 	public final boolean [][] getBoardLegal()
@@ -91,7 +94,9 @@ public class Board {
 		board[1][0] = FIG_BISHOP;
 		board[0][1] = FIG_BISHOP;
 		board[1][1] = FIG_KNIGHT;
+		board[2][2] = FIG_ARCHER;
 		
+		board[5][5] = -FIG_ARCHER;
 		board[6][7] = -FIG_BISHOP;
 		board[7][6] = -FIG_BISHOP;
 		board[6][6] = -FIG_KNIGHT;
