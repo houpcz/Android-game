@@ -6,17 +6,18 @@ import android.view.MotionEvent;
 public class Human extends Player implements BoardTouchListener {
 
 	boolean myTurn;
-	boolean isMarked;
+	FigureMarked figureMarked;
 	
 	Human(HeroicInterface heroicInterface) {
 		super(heroicInterface);
 
 		myTurn = false;
+		figureMarked = new FigureMarked();
 	}
 
 	@Override
 	void TakeTurn() {
-		isMarked = false;
+		figureMarked.isMarked = false;
 		myTurn = true;
 	}
 
@@ -27,13 +28,25 @@ public class Human extends Player implements BoardTouchListener {
 			if(action == MotionEvent.ACTION_DOWN)
 			{
 				Log.d(GameCore.LOG_TAG, "row:" + row + " col:" + col);
-				if(!isMarked)
-					isMarked = heroicInterface.markFigure(row, col);
-				else if(heroicInterface.moveFigure(row, col)) {
-					myTurn = false;
-				} else {
-					isMarked = false;
+				if(!figureMarked.isMarked) {
+					figureMarked.isMarked = heroicInterface.markFigure(row, col);
+					if(figureMarked.isMarked)
+					{
+						figureMarked.col = col;
+						figureMarked.row = row;
+					}
 				}
+				else {
+					if(row == figureMarked.row && col == figureMarked.col)
+					{
+						figureMarked.isMarked = false;
+						heroicInterface.markFigure(row, col);
+					} else
+					if(heroicInterface.moveFigure(row, col)) {
+						myTurn = false;
+					}
+				}
+				
 			}
 		}
 	}
