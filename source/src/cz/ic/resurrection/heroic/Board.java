@@ -6,6 +6,7 @@ import android.util.Log;
 public class Board {
 	// Positive are light
 	public static final int FIG_KING = 1; // 1 white king, -1 black king 
+	public static final int FIG_NONE = 0;
 	
 	Heroic heroic;
 	byte [][] board;
@@ -23,6 +24,11 @@ public class Board {
 		board = new byte[8][8];
 		board[0][0] = FIG_KING;
 		board[7][7] = -FIG_KING;
+	}
+	
+	public void setNextTurn()
+	{
+		figureMarked.isMarked = false;
 	}
 	
 	public final byte [][] getBoard()
@@ -67,5 +73,16 @@ public class Board {
 			return Player.GREY;
 		else
 			return Player.DARK;
+	}
+
+	public boolean moveFigure(byte row, byte col) {
+		if(figureMarked.isMarked)
+		{
+			board[row][col] = board[figureMarked.row][figureMarked.col];
+			board[figureMarked.row][figureMarked.col] = FIG_NONE;
+			
+			return true;
+		}
+		return false;
 	}
 }

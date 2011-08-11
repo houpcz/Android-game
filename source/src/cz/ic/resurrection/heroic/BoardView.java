@@ -13,22 +13,21 @@ public class BoardView extends GameObjectView {
 	ArrayList<BoardTouchListener> touchListener;
 	int FIGURE_WIDTH = 30;
 	
-	public BoardView(Board board, Context context)
+	public BoardView(Context context)
 	{
 		super(context, R.drawable.board_marble);
-		this.board = board;
 		touchListener = new ArrayList<BoardTouchListener>();
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
+			
+		Drawable figureImage = null;	
+		if(board == null)
+			return;
 		
 		byte [][] b = board.getBoard();
-		Drawable figureImage = null;
-		
-		if(b == null)
-			return;
 		
 		FigureMarked figure = board.getMarkedFigure();
 		
@@ -89,7 +88,7 @@ public class BoardView extends GameObjectView {
 			byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
 			for(BoardTouchListener touch : touchListener)
 			{
-				touch.TouchBoard(y, x);
+				touch.TouchBoard(y, x, event.getAction());
 			}
 			return true;
 		}
@@ -99,5 +98,10 @@ public class BoardView extends GameObjectView {
 	public void AttachTouchListener(BoardTouchListener listener)
 	{
 		touchListener.add(listener);
+	}
+
+	public void setNewGame(Board board) {
+		this.board = board;
+		touchListener.clear();
 	}
 }

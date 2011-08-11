@@ -271,7 +271,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         public boolean onTouchEvent(MotionEvent event)
         {
-        	Log.w(GameCore.LOG_TAG, "onTouchEvent " + event.getX() + "; " + event.getY());
+        	//Log.w(GameCore.LOG_TAG, "onTouchEvent " + event.getX() + "; " + event.getY());
         	
         	return heroicView.onTouchEvent(event);
         }

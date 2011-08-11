@@ -13,7 +13,7 @@ public class HeroicView {
 	public HeroicView(Heroic heroic, Context context)
 	{
 		this.heroic = heroic;
-		boardView = new BoardView(heroic.getBoard(), context);
+		boardView = new BoardView(context);
 	}
 	
 	public void draw(Canvas canvas)
