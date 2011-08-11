@@ -29,8 +29,6 @@ public class BoardView extends GameObjectView {
 		
 		byte [][] b = board.getBoard();
 		
-		FigureMarked figure = board.getMarkedFigure();
-		
 		for(int loop1 = 0; loop1 < b.length; loop1++)
 		{
 			for(int loop2 = 0; loop2 < b[loop1].length; loop2++)
@@ -41,13 +39,17 @@ public class BoardView extends GameObjectView {
 					case Player.LIGHT :
 						switch(b[loop1][loop2])
 						{
-							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.w_king);
+							case Board.FIG_KNIGHT :  figureImage = context.getResources().getDrawable(R.drawable.w_cavalery); break;
+							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.w_infantry); break;
+							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.w_king); break;
 						}
 						break;
 					case Player.DARK :
 						switch(-b[loop1][loop2])
 						{
-							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.b_king);
+							case Board.FIG_KNIGHT :  figureImage = context.getResources().getDrawable(R.drawable.b_cavalery); break;
+							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.b_infantry); break;
+							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.b_king); break;
 						}
 						break;
 					case Player.GREY :
@@ -67,6 +69,12 @@ public class BoardView extends GameObjectView {
 		}
 		
 		
+		drawMarkedFigure(canvas);
+	}
+	
+	private void drawMarkedFigure(Canvas canvas)
+	{
+		FigureMarked figure = board.getMarkedFigure();
 		if(figure.isMarked)
 		{
 			Paint paint = new Paint();

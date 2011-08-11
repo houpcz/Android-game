@@ -5,6 +5,8 @@ import android.util.Log;
 
 public class Board {
 	// Positive are light
+	public static final int FIG_KNIGHT = 3;
+	public static final int FIG_BISHOP = 2;
 	public static final int FIG_KING = 1; // 1 white king, -1 black king 
 	public static final int FIG_NONE = 0;
 	
@@ -23,6 +25,13 @@ public class Board {
 		figureMarked = new FigureMarked();
 		board = new byte[8][8];
 		board[0][0] = FIG_KING;
+		board[1][0] = FIG_BISHOP;
+		board[0][1] = FIG_BISHOP;
+		board[1][1] = FIG_KNIGHT;
+		
+		board[6][7] = -FIG_BISHOP;
+		board[7][6] = -FIG_BISHOP;
+		board[6][6] = -FIG_KNIGHT;
 		board[7][7] = -FIG_KING;
 	}
 	
@@ -78,10 +87,14 @@ public class Board {
 	public boolean moveFigure(byte row, byte col) {
 		if(figureMarked.isMarked)
 		{
-			board[row][col] = board[figureMarked.row][figureMarked.col];
-			board[figureMarked.row][figureMarked.col] = FIG_NONE;
-			
-			return true;
+			if(row != figureMarked.row || col != figureMarked.col)
+			{
+				board[row][col] = board[figureMarked.row][figureMarked.col];
+				board[figureMarked.row][figureMarked.col] = FIG_NONE;
+				return true;
+			} else {
+				figureMarked.isMarked = false;
+			}
 		}
 		return false;
 	}
