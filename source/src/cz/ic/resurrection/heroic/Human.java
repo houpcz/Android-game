@@ -32,18 +32,20 @@ public class Human extends Player implements BoardTouchListener {
 					figureMarked.isMarked = heroicInterface.markFigure(row, col);
 					if(figureMarked.isMarked)
 					{
-						figureMarked.col = col;
-						figureMarked.row = row;
+						figureMarked.pos.x = col;
+						figureMarked.pos.y = row;
 					}
 				}
 				else {
-					if(row == figureMarked.row && col == figureMarked.col)
+					if(row == figureMarked.pos.y && col == figureMarked.pos.x)
 					{
 						figureMarked.isMarked = false;
 						heroicInterface.markFigure(row, col);
 					} else
 					if(heroicInterface.moveFigure(row, col)) {
 						myTurn = false;
+					} else {
+						figureMarked.isMarked = false;
 					}
 				}
 				

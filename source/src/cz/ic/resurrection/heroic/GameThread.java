@@ -101,7 +101,12 @@ class GameThread extends Thread {
                     	update();
                     draw(c);
                 }
-            } finally {
+            } catch(Exception e)
+            {
+            	Log.e(GameCore.LOG_TAG, e.getMessage());
+            	Log.e(GameCore.LOG_TAG, e.toString());
+            }
+            finally {
                 // do this in a finally so that if an exception is thrown
                 // during the above, we don't leave the Surface in an
                 // inconsistent state

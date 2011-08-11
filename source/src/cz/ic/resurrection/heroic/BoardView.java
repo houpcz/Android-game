@@ -28,6 +28,7 @@ public class BoardView extends GameObjectView {
 			return;
 		
 		byte [][] b = board.getBoard();
+		boolean [][] legal = board.getBoardLegal();
 		
 		for(int loop1 = 0; loop1 < b.length; loop1++)
 		{
@@ -65,11 +66,30 @@ public class BoardView extends GameObjectView {
 					figureImage.setBounds(left, top, right, bottom);
 					figureImage.draw(canvas);
 				}
+				if(legal[loop1][loop2])
+					drawLegalTiles(canvas, loop2, loop1);
 			}
 		}
 		
 		
 		drawMarkedFigure(canvas);
+	}
+	
+	private void drawLegalTiles(Canvas canvas, int col, int row)
+	{
+		Paint paint = new Paint();
+		paint.setARGB(16, 0, 255, 0);
+		paint.setStrokeWidth(2.0f);
+		int left = col * FIGURE_WIDTH;
+		int right = left + FIGURE_WIDTH;
+		int top = row * FIGURE_WIDTH;
+		int bottom = top + FIGURE_WIDTH;
+		canvas.drawRect(left, top, right, bottom, paint);
+		paint.setARGB(255, 0, 255, 0);
+		canvas.drawLines(new float[] {left, top, left, bottom, 
+									  left, bottom, right, bottom, 
+									  right, bottom, right, top,
+									  right, top, left, top}, paint);
 	}
 	
 	private void drawMarkedFigure(Canvas canvas)
@@ -80,9 +100,9 @@ public class BoardView extends GameObjectView {
 			Paint paint = new Paint();
 			paint.setARGB(255, 255, 0, 0);
 			paint.setStrokeWidth(2.0f);
-			int left = figure.col * FIGURE_WIDTH;
+			int left = figure.pos.x * FIGURE_WIDTH;
 			int right = left + FIGURE_WIDTH;
-			int top = figure.row * FIGURE_WIDTH;
+			int top = figure.pos.y * FIGURE_WIDTH;
 			int bottom = top + FIGURE_WIDTH;
 			canvas.drawLines(new float[] {left, top, left, bottom, 
 										  left, bottom, right, bottom, 
