@@ -5,10 +5,10 @@ import android.util.Log;
 
 public class Board {
 	// Positive are light
-	public static final int FIG_KNIGHT = 3;
-	public static final int FIG_BISHOP = 2;
-	public static final int FIG_KING = 1; // 1 white king, -1 black king 
-	public static final int FIG_NONE = 0;
+	public static final byte FIG_KNIGHT = 3;
+	public static final byte FIG_BISHOP = 2;
+	public static final byte FIG_KING = 1; // 1 white king, -1 black king 
+	public static final byte FIG_NONE = 0;
 	
 	Heroic heroic;
 	byte [][] board;

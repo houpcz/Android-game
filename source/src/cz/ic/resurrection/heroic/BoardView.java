@@ -78,12 +78,16 @@ public class BoardView extends GameObjectView {
 		if(figure.isMarked)
 		{
 			Paint paint = new Paint();
-			paint.setARGB(120, 255, 0, 0);
+			paint.setARGB(255, 255, 0, 0);
+			paint.setStrokeWidth(2.0f);
 			int left = figure.col * FIGURE_WIDTH;
 			int right = left + FIGURE_WIDTH;
 			int top = figure.row * FIGURE_WIDTH;
 			int bottom = top + FIGURE_WIDTH;
-			canvas.drawRect(left, top, right, bottom, paint);
+			canvas.drawLines(new float[] {left, top, left, bottom, 
+										  left, bottom, right, bottom, 
+										  right, bottom, right, top,
+										  right, top, left, top}, paint);
 		}
 	}
 	
