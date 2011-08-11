@@ -6,14 +6,14 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
-public abstract class GameObject {
+public abstract class GameObjectView {
 	Drawable imageActive;
 	Context context;
 	
 	protected int imageWidth;
 	protected int imageHeight;
 	
-	public GameObject(Context context, int resource)
+	public GameObjectView(Context context, int resource)
 	{
 		this.context = context;
 		imageActive = context.getResources().getDrawable(resource);
@@ -36,8 +36,6 @@ public abstract class GameObject {
 	{
 		return imageActive.getBounds();
 	}
-	
-	abstract public void update(double time);
 	
 	public boolean onTouchEvent(MotionEvent event)
 	{

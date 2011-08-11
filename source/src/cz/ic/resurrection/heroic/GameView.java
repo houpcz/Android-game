@@ -1,10 +1,6 @@
 package cz.ic.resurrection.heroic;
 
-import java.util.ArrayList;
-
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -25,14 +21,14 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public static final int STATE_RUNNING = 4;
         public static final int STATE_WIN = 5;
         private int gameState;
-        
-        private ArrayList<GameObject> gameObject;
-
+ 
         private int canvasHeight = 1;
         private int canvasWidth = 1;
 
         //private Handler handler;
         private Context gameContext;
+        Heroic heroic;
+        HeroicView heroicView;
 
         /** Used to figure out elapsed time between frames */
         private long timeLast;
@@ -51,13 +47,11 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             this.surfaceHolder = surfaceHolder;
             //this.handler = handler; // now is not useful
             gameContext = context;
- 
-            Resources res = context.getResources();
-
-            gameObject = new ArrayList<GameObject>();
             
-            gameObject.add(new ChessBoard(context, R.drawable.board_marble));
-
+            heroic = new Heroic();
+            heroicView = new HeroicView(heroic, context);
+            heroic.SetBoardView(heroicView.getBoardView());
+            
             linePaint = new Paint();
             linePaint.setAntiAlias(true);
             linePaint.setARGB(255, 0, 255, 0);
@@ -76,6 +70,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                 timeLast = System.currentTimeMillis() + 100;
                 setState(STATE_RUNNING);
+                heroic.setNewGame();
             }
         }
 
@@ -278,29 +273,14 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         {
         	Log.w(GameCore.LOG_TAG, "onTouchEvent " + event.getX() + "; " + event.getY());
         	
-        	boolean status = false;
-        	for(GameObject o : gameObject)
-        	{
-        		status = status || o.onTouchEvent(event);
-        	}
-        	return status;
+        	return heroicView.onTouchEvent(event);
         }
         /**
          * Draws the ship, fuel/speed bars, and background to the provided
          * Canvas.
          */
         private void draw(Canvas canvas) {
-            // Draw the background image. Operations on the Canvas accumulate
-            // so this is like clearing the screen.
-            
-        	for(GameObject o : gameObject)
-        	{
-        		o.draw(canvas);
-        	}
-
-            //canvas.save();
-            //canvas.rotate();
-            //canvas.restore();
+            heroicView.draw(canvas);
         }
 
         private void update() {
@@ -309,14 +289,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if (timeLast > now) return;
 
             double elapsed = (now - timeLast) / 1000.0;
-
+            heroic.update(elapsed);
             timeLast = now;
-            
-            for(GameObject o : gameObject)
-        	{
-        		o.update(elapsed);
-        	}
-            
         }
     }
 
