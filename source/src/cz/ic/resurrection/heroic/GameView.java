@@ -58,9 +58,6 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             
             gameObject.add(new ChessBoard(context, R.drawable.board_marble));
 
-            //mLanderWidth = mLanderImage.getIntrinsicWidth();
-            //mLanderHeight = mLanderImage.getIntrinsicHeight();
-
             linePaint = new Paint();
             linePaint.setAntiAlias(true);
             linePaint.setARGB(255, 0, 255, 0);
@@ -280,7 +277,13 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         public boolean onTouchEvent(MotionEvent event)
         {
         	Log.w(GameCore.LOG_TAG, "onTouchEvent " + event.getX() + "; " + event.getY());
-        	return false;
+        	
+        	boolean status = false;
+        	for(GameObject o : gameObject)
+        	{
+        		status = status || o.onTouchEvent(event);
+        	}
+        	return status;
         }
         /**
          * Draws the ship, fuel/speed bars, and background to the provided

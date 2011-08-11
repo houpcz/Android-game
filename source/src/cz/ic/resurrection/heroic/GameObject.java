@@ -2,14 +2,16 @@ package cz.ic.resurrection.heroic;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.view.MotionEvent;
 
 public abstract class GameObject {
 	Drawable imageActive;
 	Context context;
 	
-	int imageWidth;
-	int imageHeight;
+	protected int imageWidth;
+	protected int imageHeight;
 	
 	public GameObject(Context context, int resource)
 	{
@@ -30,5 +32,15 @@ public abstract class GameObject {
 		imageActive.draw(c);
 	}
 	
+	public Rect getBounds()
+	{
+		return imageActive.getBounds();
+	}
+	
 	abstract public void update(double time);
+	
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		return false;
+	}
 }
