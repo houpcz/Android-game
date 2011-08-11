@@ -63,11 +63,22 @@ public class Board {
 		return (board[pos.y][pos.x] < 0) ? -board[pos.y][pos.x] : board[pos.y][pos.x];
 	}
 
-	public void setBoardLegal(boolean isLegal, int row, int col)
+	/**
+	 * @param isLegal
+	 * @param row
+	 * @param col
+	 * @return if on the place is some figure - some figures cant go through
+	 */
+	public boolean setBoardLegal(int row, int col)
 	{
 		if(row >= 0 && row < BOARD_WIDTH &&
 		   col >= 0 && col < BOARD_WIDTH)
-			boardLegalClick[row][col] = isLegal;
+		{
+			boardLegalClick[row][col] = !isActivePlayerFigure((byte) row, (byte) col);
+			return board[row][col] == FIG_NONE;
+		}
+		
+		return false;
 	}
 	
 	public void setNewGame()
