@@ -15,5 +15,4 @@ public class Knight extends Figure {
 		board.setBoardLegal(pos.y + 2, pos.x + 1);
 		board.setBoardLegal(pos.y - 2, pos.x + 1);
 	}
-
 }

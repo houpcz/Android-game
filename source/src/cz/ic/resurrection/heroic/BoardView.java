@@ -12,6 +12,8 @@ public class BoardView extends GameObjectView {
 	private Board board;
 	private ArrayList<BoardTouchListener> touchListener;
 	private int FIGURE_WIDTH = 30;
+	private int topBoard;
+	private int leftBoard;
 	
 	public BoardView(Context context)
 	{
@@ -40,6 +42,7 @@ public class BoardView extends GameObjectView {
 					case Player.LIGHT :
 						switch(b[loop1][loop2])
 						{
+							case Board.FIG_WALL : figureImage = context.getResources().getDrawable(R.drawable.w_wall); break;
 							case Board.FIG_ARCHER : figureImage = context.getResources().getDrawable(R.drawable.w_archer); break;
 							case Board.FIG_KNIGHT : figureImage = context.getResources().getDrawable(R.drawable.w_cavalery); break;
 							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.w_infantry); break;
@@ -49,6 +52,7 @@ public class BoardView extends GameObjectView {
 					case Player.DARK :
 						switch(-b[loop1][loop2])
 						{
+							case Board.FIG_WALL : figureImage = context.getResources().getDrawable(R.drawable.b_wall); break;
 							case Board.FIG_ARCHER : figureImage = context.getResources().getDrawable(R.drawable.b_archer); break;
 							case Board.FIG_KNIGHT : figureImage = context.getResources().getDrawable(R.drawable.b_cavalery); break;
 							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.b_infantry); break;
@@ -61,9 +65,9 @@ public class BoardView extends GameObjectView {
 				}
 				if(figureImage != null)
 				{
-					int left = loop2 * FIGURE_WIDTH;
+					int left = loop2 * FIGURE_WIDTH + leftBoard;
 					int right = left + FIGURE_WIDTH;
-					int top = loop1 * FIGURE_WIDTH;
+					int top = loop1 * FIGURE_WIDTH + topBoard;
 					int bottom = top + FIGURE_WIDTH;
 					figureImage.setBounds(left, top, right, bottom);
 					figureImage.draw(canvas);
@@ -82,9 +86,9 @@ public class BoardView extends GameObjectView {
 		Paint paint = new Paint();
 		paint.setARGB(16, 0, 255, 0);
 		paint.setStrokeWidth(2.0f);
-		int left = col * FIGURE_WIDTH;
+		int left = col * FIGURE_WIDTH + leftBoard;
 		int right = left + FIGURE_WIDTH;
-		int top = row * FIGURE_WIDTH;
+		int top = row * FIGURE_WIDTH + topBoard;
 		int bottom = top + FIGURE_WIDTH;
 		canvas.drawRect(left, top, right, bottom, paint);
 		paint.setARGB(255, 0, 255, 0);
@@ -102,9 +106,9 @@ public class BoardView extends GameObjectView {
 			Paint paint = new Paint();
 			paint.setARGB(255, 255, 0, 0);
 			paint.setStrokeWidth(2.0f);
-			int left = figure.pos.x * FIGURE_WIDTH;
+			int left = figure.pos.x * FIGURE_WIDTH + leftBoard;
 			int right = left + FIGURE_WIDTH;
-			int top = figure.pos.y * FIGURE_WIDTH;
+			int top = figure.pos.y * FIGURE_WIDTH + topBoard;
 			int bottom = top + FIGURE_WIDTH;
 			canvas.drawLines(new float[] {left, top, left, bottom, 
 										  left, bottom, right, bottom, 
@@ -118,8 +122,8 @@ public class BoardView extends GameObjectView {
 		if(getBounds().contains((int) event.getX(), (int) event.getY()))
 		{
 			// TODO is not OK, repair it
-			byte x = (byte) (((int) event.getX() - getBounds().left) / FIGURE_WIDTH);
-			byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
+			byte x = (byte) (((int) event.getX() - leftBoard) / FIGURE_WIDTH);
+			byte y = (byte) (((int) event.getY() - topBoard) / FIGURE_WIDTH);
 			for(BoardTouchListener touch : touchListener)
 			{
 				touch.TouchBoard(y, x, event.getAction());
@@ -139,7 +143,9 @@ public class BoardView extends GameObjectView {
 		touchListener.clear();
 	}
 
-	public void setCanvasSize(int canvasWidth, int canvasHeight) {		
-		setPos(0, (canvasHeight - imageHeight) / 2);
+	public void setCanvasSize(int canvasWidth, int canvasHeight) {	
+		leftBoard = (canvasWidth - imageWidth) / 2;
+		topBoard = (canvasHeight - imageHeight) / 2;
+		setPos(leftBoard, topBoard);
 	}
 }

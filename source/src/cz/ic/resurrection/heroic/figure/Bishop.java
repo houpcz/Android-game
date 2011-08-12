@@ -18,5 +18,4 @@ public class Bishop extends Figure {
 		if(board.setBoardLegal(pos.y, pos.x + 1));
 			board.setBoardLegal(pos.y, pos.x + 2);
 	}
-
 }

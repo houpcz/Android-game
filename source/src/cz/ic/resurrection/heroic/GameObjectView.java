@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
-public abstract class GameObjectView {
+public class GameObjectView {
 	Drawable imageActive;
 	Context context;
 	

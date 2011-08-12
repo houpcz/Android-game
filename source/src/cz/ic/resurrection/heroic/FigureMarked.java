@@ -9,6 +9,6 @@ public class FigureMarked {
 	public FigureMarked()
 	{
 		isMarked = false;
-		pos = new BoardPos();
+		pos = new BoardPos((byte) 0, (byte) 0);
 	}
 }

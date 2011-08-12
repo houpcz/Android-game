@@ -16,4 +16,10 @@ public class King extends Figure {
 		board.setBoardLegal(pos.y - 1, pos.x + 1);
 	}
 
+	@Override
+	public void deathEvent(Board board, BoardPos pos) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

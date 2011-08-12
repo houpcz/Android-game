@@ -1,16 +1,11 @@
 package cz.ic.resurrection.heroic;
 
 import android.util.Log;
-import cz.ic.resurrection.heroic.figure.Archer;
-import cz.ic.resurrection.heroic.figure.Bishop;
-import cz.ic.resurrection.heroic.figure.BoardPos;
-import cz.ic.resurrection.heroic.figure.Figure;
-import cz.ic.resurrection.heroic.figure.King;
-import cz.ic.resurrection.heroic.figure.Knight;
-
+import cz.ic.resurrection.heroic.figure.*;
 
 public class Board {
 	// Positive are light
+	public static final byte FIG_WALL = 5;
 	public static final byte FIG_ARCHER = 4;
 	public static final byte FIG_KNIGHT = 3;
 	public static final byte FIG_BISHOP = 2;
@@ -29,10 +24,12 @@ public class Board {
 	{
 		this.heroic = heroic;
 		figure = new Figure[10];
+		figure[FIG_NONE] = new NullFigure();
 		figure[FIG_KING] = new King();
 		figure[FIG_BISHOP] = new Bishop();
 		figure[FIG_KNIGHT] = new Knight();
 		figure[FIG_ARCHER] = new Archer();
+		figure[FIG_WALL] = new Wall();
 	}
 	
 	public final boolean [][] getBoardLegal()
@@ -95,7 +92,11 @@ public class Board {
 		board[0][1] = FIG_BISHOP;
 		board[1][1] = FIG_KNIGHT;
 		board[2][2] = FIG_ARCHER;
+		board[2][1] = FIG_WALL;
+		board[1][2] = FIG_WALL;
 		
+		board[6][5] = -FIG_WALL;
+		board[5][6] = -FIG_WALL;
 		board[5][5] = -FIG_ARCHER;
 		board[6][7] = -FIG_BISHOP;
 		board[7][6] = -FIG_BISHOP;
@@ -161,8 +162,10 @@ public class Board {
 		{
 			if(boardLegalClick[row][col])
 			{
+				int fig = getFigureOnPos(new BoardPos(row, col));
 				board[row][col] = board[figureMarked.pos.y][figureMarked.pos.x];
 				board[figureMarked.pos.y][figureMarked.pos.x] = FIG_NONE;
+				figure[fig].deathEvent(this, new BoardPos(row, col));
 				return true;
 			} else {
 				figureMarked.isMarked = false;
