@@ -43,7 +43,7 @@ public class BoardView extends GameObjectView {
 							case Board.FIG_WALL : figureImage = context.getResources().getDrawable(R.drawable.w_wall); break;
 							case Board.FIG_ARCHER : figureImage = context.getResources().getDrawable(R.drawable.w_archer); break;
 							case Board.FIG_KNIGHT : figureImage = context.getResources().getDrawable(R.drawable.w_cavalery); break;
-							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.w_infantry); break;
+							case Board.FIG_PAWN : figureImage = context.getResources().getDrawable(R.drawable.w_infantry); break;
 							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.w_king); break;
 						}
 						break;
@@ -53,7 +53,7 @@ public class BoardView extends GameObjectView {
 							case Board.FIG_WALL : figureImage = context.getResources().getDrawable(R.drawable.b_wall); break;
 							case Board.FIG_ARCHER : figureImage = context.getResources().getDrawable(R.drawable.b_archer); break;
 							case Board.FIG_KNIGHT : figureImage = context.getResources().getDrawable(R.drawable.b_cavalery); break;
-							case Board.FIG_BISHOP : figureImage = context.getResources().getDrawable(R.drawable.b_infantry); break;
+							case Board.FIG_PAWN : figureImage = context.getResources().getDrawable(R.drawable.b_infantry); break;
 							case Board.FIG_KING : figureImage = context.getResources().getDrawable(R.drawable.b_king); break;
 						}
 						break;

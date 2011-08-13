@@ -27,7 +27,7 @@ public class Heroic implements HeroicInterface {
 	Heroic(Handler handler, Context context)
 	{
 		player = new Player[2];
-		board = new Board(this);
+		board = new Board(this, context);
 		this.handler = handler;
 		this.context = context;
 		setState(STATE_READY);
