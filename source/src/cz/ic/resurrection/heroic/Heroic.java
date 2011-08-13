@@ -1,5 +1,6 @@
 package cz.ic.resurrection.heroic;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,26 +8,78 @@ import android.util.Log;
 import android.view.View;
 
 public class Heroic implements HeroicInterface {
+	public static final int STATE_READY = 0;
+	public static final int STATE_PLAYING = 1;
+	public static final int STATE_LIGHT_WINS = 2;
+	public static final int STATE_DARK_WINS = 3;
+	int state;
+	
+	public static final int INNER_STATE_MOVE_FIGURE = 0;
+	int innerState;
+	
 	Player [] player;
 	Board board;
 	BoardView boardView;
 	int activePlayer;
 	Handler handler;
+	Context context;
 	
-	Heroic(Handler handler)
+	Heroic(Handler handler, Context context)
 	{
 		player = new Player[2];
 		board = new Board(this);
 		this.handler = handler;
+		this.context = context;
+		setState(STATE_READY);
+	}
+	
+	void leavingState(int oldState)
+	{
+		
+	}
+	
+	void startingState(int newState)
+	{
+		switch(newState)
+		{
+			case STATE_READY :
+				changeGameStatus(context.getString(R.string.heroic_press_menu));
+				break;
+			case STATE_PLAYING :
+				changeGameStatus("");
+				break;
+			case STATE_LIGHT_WINS :
+				changeGameStatus(context.getString(R.string.heroic_light_wins));
+				break;
+			case STATE_DARK_WINS :
+				changeGameStatus(context.getString(R.string.heroic_dark_wins));
+				break;
+		}
+	}
+	
+	private void setState(int newState)
+	{
+		leavingState(state);
+		startingState(newState);
+		state = newState;
 	}
 
-	public void SetBoardView(BoardView boardView)
+	public void setBoardView(BoardView boardView)
 	{
 		this.boardView = boardView;
 	}
 	
 	public Board getBoard() {
 		return board;
+	}
+	
+	public void setGameOver(byte winner)
+	{
+		switch(winner)
+		{
+			case Player.DARK : setState(STATE_DARK_WINS); break;
+			case Player.LIGHT : setState(STATE_LIGHT_WINS); break;
+		}
 	}
 	
 	public void setNewGame()
@@ -45,7 +98,7 @@ public class Heroic implements HeroicInterface {
 		
 		player[activePlayer].TakeTurn();
 		
-		changeGameStatus("");
+		setState(STATE_PLAYING);
 	}
 	
 	private void nextTurn()
@@ -89,5 +142,9 @@ public class Heroic implements HeroicInterface {
         b.putString("text", newStatus);
         b.putInt("viz", newStatus.compareTo("") == 0 ? View.INVISIBLE : View.VISIBLE);
         handler.sendMessage(msg);
+	}
+
+	public int getGameState() {
+		return state;
 	}
 }

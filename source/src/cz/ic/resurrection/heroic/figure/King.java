@@ -40,8 +40,9 @@ public class King extends Figure {
 
 	@Override
 	public void deathEvent(Board board, BoardPos pos) {
-		// TODO Auto-generated method stub
-		
+		board.defeatPlayer(
+				Board.getFigureColor(board.getBoard()[pos.y][pos.x])
+				);
 	}
 
 }

@@ -168,7 +168,7 @@ public class Board {
 		return heroic.getActivePlayer() == getFigureColor(board[row][col]);
 	}
 	
-	public static int getFigureColor(byte fig)
+	public static byte getFigureColor(byte fig)
 	{
 		if(fig > 0)
 			return Player.LIGHT;
@@ -190,6 +190,14 @@ public class Board {
 		return false;
 	}
 	
+	public void defeatPlayer(byte looser)
+	{
+		if(looser == Player.DARK)
+			heroic.setGameOver(Player.LIGHT);
+		else if(looser == Player.LIGHT)
+			heroic.setGameOver(Player.DARK);
+	}
+	
 	public boolean moveFigure(byte row, byte col) {
 		if(figureMarked.isMarked)
 		{
@@ -206,5 +214,9 @@ public class Board {
 			}
 		}
 		return false;
+	}
+
+	public int getGameState() {
+		return heroic.getGameState();
 	}
 }

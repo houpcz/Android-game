@@ -34,9 +34,9 @@ class GameThread extends Thread {
     	
         this.surfaceHolder = surfaceHolder;
         
-        heroic = new Heroic(handler);
+        heroic = new Heroic(handler, context);
         heroicView = new HeroicView(heroic, context);
-        heroic.SetBoardView(heroicView.getBoardView());
+        heroic.setBoardView(heroicView.getBoardView());
         
         linePaint = new Paint();
         linePaint.setAntiAlias(true);

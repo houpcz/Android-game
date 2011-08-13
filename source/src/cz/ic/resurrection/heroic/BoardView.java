@@ -70,8 +70,18 @@ public class BoardView extends GameObjectView {
 					figureImage.setBounds(left, top, right, bottom);
 					figureImage.draw(canvas);
 				}
-				if(legal[loop1][loop2])
-					drawLegalTiles(canvas, loop2, loop1);
+			}
+		}
+		
+		if(board.getGameState() == Heroic.STATE_PLAYING)
+		{
+			for(int loop1 = 0; loop1 < b.length; loop1++)
+			{
+				for(int loop2 = 0; loop2 < b[loop1].length; loop2++)
+				{
+					if(legal[loop1][loop2])
+						drawLegalTiles(canvas, loop2, loop1);
+				}
 			}
 		}
 		
@@ -119,18 +129,24 @@ public class BoardView extends GameObjectView {
 	{
 		if(getBounds().contains((int) event.getX(), (int) event.getY()))
 		{
-			// TODO is not OK, repair it
 			if(board != null)
 			{
-				byte x = (byte) (((int) event.getX() - getBounds().left) / FIGURE_WIDTH);
-				byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
-				boolean clickable = board.getBoardLegal()[y][x];
-				for(BoardTouchListener touch : touchListener)
+				int state = board.getGameState();
+				if(state == Heroic.STATE_PLAYING)
 				{
-					touch.TouchBoard(y, x, event.getAction(), clickable);
+					byte x = (byte) (((int) event.getX() - getBounds().left) / FIGURE_WIDTH);
+					byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
+					boolean clickable = board.getBoardLegal()[y][x];
+					for(BoardTouchListener touch : touchListener)
+					{
+						touch.TouchBoard(y, x, event.getAction(), clickable);
+					}
+					return true;
+				} else if(state == Heroic.STATE_DARK_WINS || state == Heroic.STATE_LIGHT_WINS)
+				{
+					
 				}
-				return true;
-			}	
+			}
 		}
 		return false;
 	}

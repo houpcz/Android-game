@@ -2,5 +2,7 @@
 <resources>
     <string name="menu_start">Start game</string>
     <string name="heroic_press_menu">Press menu</string>
+    <string name="heroic_light_wins">Light player wins game</string>
+    <string name="heroic_dark_wins">Dark player wins game</string>
     <string name="app_name">Heroic Quest</string>
 </resources>
