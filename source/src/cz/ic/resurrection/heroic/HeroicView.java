@@ -19,6 +19,7 @@ public class HeroicView {
 		boardTop = new GameObjectView(context, R.drawable.board_marble_dark);
 		boardBottom = new GameObjectView(context, R.drawable.board_marble_light);
 		boardTop.setPos(0, 0);
+		boardView.setPos(0, boardTop.getBounds().height());
 		boardBottom.setPos(0, boardTop.getBounds().height() + boardView.getBounds().height());
 	}
 	

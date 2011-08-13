@@ -8,5 +8,14 @@ public class Wall extends Figure{
 	public void setLegalMoves(Board board, BoardPos pos) {
 		// wall cant move
 	}
+	
+	public boolean canMove(Board board, BoardPos pos)
+	{
+		return false;
+	}
+	
+	public void deathEvent(Board board, BoardPos pos) {
+		board.killFigure(pos.y, pos.x);
+	}
 
 }

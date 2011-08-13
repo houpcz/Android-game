@@ -7,4 +7,5 @@ public abstract class Figure {
 	public void deathEvent(Board board, BoardPos pos) {
 		
 	}
+	abstract public boolean canMove(Board board, BoardPos pos);
 }

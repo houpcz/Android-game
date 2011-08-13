@@ -8,6 +8,11 @@ public class NullFigure extends Figure {
 	public void setLegalMoves(Board board, BoardPos pos) {
 
 	}
+	
+	public boolean canMove(Board board, BoardPos pos)
+	{
+		return false;
+	}
 
 	@Override
 	public void deathEvent(Board board, BoardPos pos) {

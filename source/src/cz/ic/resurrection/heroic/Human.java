@@ -22,13 +22,13 @@ public class Human extends Player implements BoardTouchListener {
 	}
 
 	@Override
-	public void TouchBoard(byte row, byte col, int action) {
+	public void TouchBoard(byte row, byte col, int action, boolean clickable) {
 		if(myTurn)
 		{
 			if(action == MotionEvent.ACTION_DOWN)
 			{
 				Log.d(GameCore.LOG_TAG, "row:" + row + " col:" + col);
-				if(!figureMarked.isMarked) {
+				if(!figureMarked.isMarked && clickable) {
 					figureMarked.isMarked = heroicInterface.markFigure(row, col);
 					if(figureMarked.isMarked)
 					{

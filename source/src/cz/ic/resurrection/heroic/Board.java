@@ -26,7 +26,7 @@ public class Board {
 		figure = new Figure[10];
 		figure[FIG_NONE] = new NullFigure();
 		figure[FIG_KING] = new King();
-		figure[FIG_BISHOP] = new Bishop();
+		figure[FIG_BISHOP] = new Pawn();
 		figure[FIG_KNIGHT] = new Knight();
 		figure[FIG_ARCHER] = new Archer();
 		figure[FIG_WALL] = new Wall();
@@ -44,7 +44,9 @@ public class Board {
 			{
 				for(byte loop2 = 0; loop2 < BOARD_WIDTH; loop2++)
 				{
-					boardLegalClick[loop1][loop2] = isActivePlayerFigure(loop1, loop2);
+					BoardPos pos = new BoardPos(loop1, loop2);
+					boardLegalClick[loop1][loop2] = isActivePlayerFigure(loop1, loop2) && 
+													figure[getFigureOnPos(pos)].canMove(this, pos);
 				}
 			}
 		} else {
@@ -78,6 +80,16 @@ public class Board {
 			return board[row][col] == FIG_NONE;
 		}
 		
+		return false;
+	}
+	
+	public boolean canMoveLegal(int row, int col)
+	{
+		if(row >= 0 && row < BOARD_WIDTH &&
+		   col >= 0 && col < BOARD_WIDTH)
+		{
+			return !isActivePlayerFigure((byte) row, (byte) col);
+		}
 		return false;
 	}
 	
@@ -157,6 +169,18 @@ public class Board {
 			return Player.DARK;
 	}
 
+	public boolean killFigure(byte row, byte col)
+	{
+		if(board[row][col] != FIG_NONE)
+		{
+			board[row][col] = FIG_NONE;
+			int fig = getFigureOnPos(new BoardPos(row, col));
+			figure[fig].deathEvent(this, new BoardPos(row, col));
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean moveFigure(byte row, byte col) {
 		if(figureMarked.isMarked)
 		{
@@ -164,7 +188,7 @@ public class Board {
 			{
 				int fig = getFigureOnPos(new BoardPos(row, col));
 				board[row][col] = board[figureMarked.pos.y][figureMarked.pos.x];
-				board[figureMarked.pos.y][figureMarked.pos.x] = FIG_NONE;
+				killFigure(figureMarked.pos.y, figureMarked.pos.x);
 				figure[fig].deathEvent(this, new BoardPos(row, col));
 				return true;
 			} else {

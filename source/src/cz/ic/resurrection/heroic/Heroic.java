@@ -29,13 +29,14 @@ public class Heroic implements HeroicInterface {
 		
 		player[Player.LIGHT] = new Human(this);
 		player[Player.DARK] = new Human(this);
-		board.setNewGame();
+		activePlayer = Player.LIGHT;
 		
+		board.setNewGame();
 		boardView.setNewGame(board);
 		boardView.AttachTouchListener((Human) player[Player.LIGHT]);
 		boardView.AttachTouchListener((Human) player[Player.DARK]);
 		
-		activePlayer = Player.LIGHT;
+		
 		player[activePlayer].TakeTurn();
 		
 		
