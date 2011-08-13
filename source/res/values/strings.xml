@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="menu_start">Start game</string>
+    <string name="heroic_press_menu">Press menu</string>
     <string name="app_name">Heroic Quest</string>
 </resources>

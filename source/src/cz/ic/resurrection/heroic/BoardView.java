@@ -120,14 +120,17 @@ public class BoardView extends GameObjectView {
 		if(getBounds().contains((int) event.getX(), (int) event.getY()))
 		{
 			// TODO is not OK, repair it
-			byte x = (byte) (((int) event.getX() - getBounds().left) / FIGURE_WIDTH);
-			byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
-			boolean clickable = board.getBoardLegal()[y][x];
-			for(BoardTouchListener touch : touchListener)
+			if(board != null)
 			{
-				touch.TouchBoard(y, x, event.getAction(), clickable);
-			}
-			return true;
+				byte x = (byte) (((int) event.getX() - getBounds().left) / FIGURE_WIDTH);
+				byte y = (byte) (((int) event.getY() - getBounds().top) / FIGURE_WIDTH);
+				boolean clickable = board.getBoardLegal()[y][x];
+				for(BoardTouchListener touch : touchListener)
+				{
+					touch.TouchBoard(y, x, event.getAction(), clickable);
+				}
+				return true;
+			}	
 		}
 		return false;
 	}

@@ -1,7 +1,13 @@
 package cz.ic.resurrection.heroic;
 
-import android.util.Log;
-import cz.ic.resurrection.heroic.figure.*;
+import cz.ic.resurrection.heroic.figure.Archer;
+import cz.ic.resurrection.heroic.figure.BoardPos;
+import cz.ic.resurrection.heroic.figure.Figure;
+import cz.ic.resurrection.heroic.figure.King;
+import cz.ic.resurrection.heroic.figure.Knight;
+import cz.ic.resurrection.heroic.figure.NullFigure;
+import cz.ic.resurrection.heroic.figure.Pawn;
+import cz.ic.resurrection.heroic.figure.Wall;
 
 public class Board {
 	// Positive are light
@@ -24,6 +30,9 @@ public class Board {
 	{
 		this.heroic = heroic;
 		figure = new Figure[10];
+		board = new byte[BOARD_WIDTH][BOARD_WIDTH];
+		boardLegalClick = new boolean[BOARD_WIDTH][BOARD_WIDTH];
+		
 		figure[FIG_NONE] = new NullFigure();
 		figure[FIG_KING] = new King();
 		figure[FIG_BISHOP] = new Pawn();
@@ -138,7 +147,7 @@ public class Board {
 	{
 		if(isActivePlayerFigure(row, col))
 		{
-			Log.w(GameCore.LOG_TAG, "activeFigure - " + row);
+			//Log.w(GameCore.LOG_TAG, "activeFigure - " + row);
 			if(figureMarked.isMarked)
 			{
 				figureMarked.isMarked = false;

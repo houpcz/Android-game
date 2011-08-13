@@ -9,9 +9,11 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
+    private TextView statusText;
     
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,6 +37,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         return thread;
     }
 
+    public void setStatusText(TextView textView)
+    {
+    	statusText = textView;
+    }
     /**
      * Standard override to get key-press events.
      */
@@ -78,6 +84,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     	thread = new GameThread(getHolder(), getContext(), new Handler() {
             @Override
             public void handleMessage(Message m) {
+                statusText.setVisibility(m.getData().getInt("viz"));
+                statusText.setText(m.getData().getString("text"));
             }
         });
     }

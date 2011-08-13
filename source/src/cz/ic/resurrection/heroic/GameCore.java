@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class GameCore extends Activity {
 		public static final String LOG_TAG = "heroicquest";
@@ -46,6 +47,7 @@ public class GameCore extends Activity {
 	        
 	        gameView.createThread();
 	        gameThread = gameView.getThread();
+	        gameView.setStatusText((TextView) findViewById(R.id.main_text));
 
 	        if (savedInstanceState == null) {
 	            // we were just launched: set up a new game

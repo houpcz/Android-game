@@ -5,23 +5,24 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.View;
 
 
 class GameThread extends Thread {
-    public static final int STATE_LOSE = 1;
-    public static final int STATE_READY = 3;
-    public static final int STATE_RUNNING = 4;
-    public static final int STATE_WIN = 5;
+    public static final int STATE_READY = 0;
+    public static final int STATE_RUNNING = 1;
+    public static final int STATE_END = 1;
     private int gameState;
  
     private int canvasHeight = 1;
     private int canvasWidth = 1;
 
-    //private Handler handler;
+    private Handler handler;
 
     Heroic heroic;
     HeroicView heroicView;
@@ -41,7 +42,7 @@ class GameThread extends Thread {
     	Log.w(GameCore.LOG_TAG, "Thread created");
     	
         this.surfaceHolder = surfaceHolder;
-        //this.handler = handler; // now is not useful
+        this.handler = handler;
         
         heroic = new Heroic();
         heroicView = new HeroicView(heroic, context);
@@ -181,10 +182,12 @@ class GameThread extends Thread {
             gameState = mode;
             Log.w(GameCore.LOG_TAG, "Set state " + mode);
             if (gameState == STATE_RUNNING) {
-                //Message msg = handler.obtainMessage();
-                //Bundle b = new Bundle();
-                //msg.setData(b);
-                //handler.sendMessage(msg);
+                Message msg = handler.obtainMessage();
+                Bundle b = new Bundle();
+                msg.setData(b);
+                b.putString("text", "");
+                b.putInt("viz", View.INVISIBLE);
+                handler.sendMessage(msg);
             } else {
                 //Message msg = handler.obtainMessage();
                 //Bundle b = new Bundle();
