@@ -51,7 +51,6 @@ public class GameCore extends Activity {
 
 	        if (savedInstanceState == null) {
 	            // we were just launched: set up a new game
-	            gameThread.setState(GameThread.STATE_READY);
 	            Log.w(LOG_TAG, "SIS is null");
 	        } else {
 	            // we are being restored: resume a previous game

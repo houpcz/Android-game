@@ -5,25 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.View;
 
 
 class GameThread extends Thread {
-    public static final int STATE_READY = 0;
-    public static final int STATE_RUNNING = 1;
-    public static final int STATE_END = 1;
-    private int gameState;
- 
     private int canvasHeight = 1;
     private int canvasWidth = 1;
-
-    private Handler handler;
-
+    
     Heroic heroic;
     HeroicView heroicView;
 
@@ -42,9 +33,8 @@ class GameThread extends Thread {
     	Log.w(GameCore.LOG_TAG, "Thread created");
     	
         this.surfaceHolder = surfaceHolder;
-        this.handler = handler;
         
-        heroic = new Heroic();
+        heroic = new Heroic(handler);
         heroicView = new HeroicView(heroic, context);
         heroic.SetBoardView(heroicView.getBoardView());
         
@@ -65,7 +55,6 @@ class GameThread extends Thread {
         	// START GAME
 
             timeLast = System.currentTimeMillis() + 100;
-            setState(STATE_RUNNING);
             heroic.setNewGame();
         }
     }
@@ -84,9 +73,7 @@ class GameThread extends Thread {
      * @param savedState Bundle containing the game state
      */
     public synchronized void restoreState(Bundle savedState) {
-        synchronized (surfaceHolder) {
-            setState(STATE_READY);
-            // Restore state from bundle         
+        synchronized (surfaceHolder) {        
         }
     }
 
@@ -98,8 +85,7 @@ class GameThread extends Thread {
             try {
                 c = surfaceHolder.lockCanvas(null);
                 synchronized (surfaceHolder) {
-                    if (gameState == STATE_RUNNING) 
-                    	update();
+                    update();
                     draw(c);
                 }
             } catch(Exception e)
@@ -179,21 +165,7 @@ class GameThread extends Thread {
      */
     public void setState(int mode, CharSequence message) {
         synchronized (surfaceHolder) {
-            gameState = mode;
-            Log.w(GameCore.LOG_TAG, "Set state " + mode);
-            if (gameState == STATE_RUNNING) {
-                Message msg = handler.obtainMessage();
-                Bundle b = new Bundle();
-                msg.setData(b);
-                b.putString("text", "");
-                b.putInt("viz", View.INVISIBLE);
-                handler.sendMessage(msg);
-            } else {
-                //Message msg = handler.obtainMessage();
-                //Bundle b = new Bundle();
-                //msg.setData(b);
-                //handler.sendMessage(msg);
-            }
+
         }
     }
 
@@ -215,7 +187,6 @@ class GameThread extends Thread {
         synchronized (surfaceHolder) {
             timeLast = System.currentTimeMillis() + 100;
         }
-        setState(STATE_RUNNING);
     }
 
     /**
@@ -242,9 +213,7 @@ class GameThread extends Thread {
         boolean handled = false;
 
         synchronized (surfaceHolder) {
-            if (gameState == STATE_RUNNING) {
 
-            }
         }
 
         return handled;

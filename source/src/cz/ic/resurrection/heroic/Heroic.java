@@ -1,17 +1,23 @@
 package cz.ic.resurrection.heroic;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.View;
 
 public class Heroic implements HeroicInterface {
 	Player [] player;
 	Board board;
 	BoardView boardView;
 	int activePlayer;
+	Handler handler;
 	
-	Heroic()
+	Heroic(Handler handler)
 	{
 		player = new Player[2];
 		board = new Board(this);
+		this.handler = handler;
 	}
 
 	public void SetBoardView(BoardView boardView)
@@ -39,7 +45,7 @@ public class Heroic implements HeroicInterface {
 		
 		player[activePlayer].TakeTurn();
 		
-		
+		changeGameStatus("");
 	}
 	
 	private void nextTurn()
@@ -73,5 +79,15 @@ public class Heroic implements HeroicInterface {
 			nextTurn();
 		}
 		return status;
+	}
+	
+	private void changeGameStatus(String newStatus)
+	{
+		Message msg = handler.obtainMessage();
+        Bundle b = new Bundle();
+        msg.setData(b);
+        b.putString("text", newStatus);
+        b.putInt("viz", newStatus.compareTo("") == 0 ? View.INVISIBLE : View.VISIBLE);
+        handler.sendMessage(msg);
 	}
 }
