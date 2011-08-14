@@ -110,10 +110,10 @@ public class Board {
 		return false;
 	}
 	
-	public void setNewGame()
+	public void setNewGame(int level)
 	{
 		figureMarked = new FigureMarked();
-		byte [][][] map = Map.loadBoard("map01", context);
+		byte [][][] map = Map.loadBoard("map" + level, context);
 		board = map[1];
 		boardBG = map[0];
 		boardLegalClick = new boolean[BOARD_WIDTH][BOARD_WIDTH];		

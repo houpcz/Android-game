@@ -50,12 +50,12 @@ class GameThread extends Thread {
     /**
      * Starts the game, setting parameters for the current difficulty.
      */
-    public void doStart() {
+    public void doStart(int level) {
         synchronized (surfaceHolder) {
         	// START GAME
 
             timeLast = System.currentTimeMillis() + 100;
-            heroic.setNewGame();
+            heroic.setNewGame(level);
         }
     }
 

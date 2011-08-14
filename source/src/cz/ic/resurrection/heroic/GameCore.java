@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class GameCore extends Activity {
 		public static final String LOG_TAG = "heroicquest";
-		
-	    private static final int MENU_START = 0;
 
 	    private GameThread gameThread;
 	    private GameView gameView;
@@ -19,7 +18,8 @@ public class GameCore extends Activity {
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        super.onCreateOptionsMenu(menu);
 
-	        menu.add(0, MENU_START, 0, R.string.menu_start);
+	        MenuInflater inflater = getMenuInflater();
+	        inflater.inflate(R.layout.game_menu, menu);
 
 	        return true;
 	    }
@@ -27,8 +27,23 @@ public class GameCore extends Activity {
 	    @Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	        switch (item.getItemId()) {
-	            case MENU_START:
-	                gameThread.doStart();
+	            case R.id.level1:
+	                gameThread.doStart(1);
+	                return true;
+	            case R.id.level2:
+	                gameThread.doStart(2);
+	                return true;
+	            case R.id.level3:
+	                gameThread.doStart(3);
+	                return true;
+	            case R.id.level4:
+	                gameThread.doStart(4);
+	                return true;
+	            case R.id.level5:
+	                gameThread.doStart(5);
+	                return true;
+	            case R.id.level6:
+	                gameThread.doStart(6);
 	                return true;
 	        }
 

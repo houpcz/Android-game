@@ -23,6 +23,7 @@ public class Heroic implements HeroicInterface {
 	int activePlayer;
 	Handler handler;
 	Context context;
+	int level;
 	
 	Heroic(Handler handler, Context context)
 	{
@@ -82,15 +83,15 @@ public class Heroic implements HeroicInterface {
 		}
 	}
 	
-	public void setNewGame()
+	public void setNewGame(int level)
 	{
 		Log.w(GameCore.LOG_TAG, "Heroic : set new game");
-		
+		this.level = level;
 		player[Player.LIGHT] = new Human(this);
 		player[Player.DARK] = new Human(this);
 		activePlayer = Player.LIGHT;
 		
-		board.setNewGame();
+		board.setNewGame(level);
 		boardView.setNewGame(board);
 		boardView.AttachTouchListener((Human) player[Player.LIGHT]);
 		boardView.AttachTouchListener((Human) player[Player.DARK]);

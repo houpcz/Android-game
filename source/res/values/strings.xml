@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="menu_info">Info</string>
     <string name="menu_start">Start game</string>
+    <string name="menu_level1">Level 1</string>
+    <string name="menu_level2">Level 2</string>
+    <string name="menu_level3">Level 3</string>
+    <string name="menu_level4">Level 4</string>
+    <string name="menu_level5">Level 5</string>
+    <string name="menu_level6">Level 6</string>
     <string name="heroic_press_menu">Press menu</string>
     <string name="heroic_light_wins">Light player wins game</string>
     <string name="heroic_dark_wins">Dark player wins game</string>
