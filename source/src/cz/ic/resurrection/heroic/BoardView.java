@@ -19,6 +19,42 @@ public class BoardView extends GameObjectView {
 		touchListener = new ArrayList<BoardTouchListener>();
 	}
 	
+	private void drawBackground(Canvas canvas)
+	{
+		byte [][] b = board.getBackground();
+		Drawable figureImage = null;
+		
+		for(int loop1 = 0; loop1 < b.length; loop1++)
+		{
+			for(int loop2 = 0; loop2 < b[loop1].length; loop2++)
+			{
+				figureImage = null;
+				switch(Board.getFigureColor(b[loop1][loop2]))
+				{
+					case Player.LIGHT :
+						switch(b[loop1][loop2])
+						{
+							case Board.TILE_RESPAWN : figureImage = context.getResources().getDrawable(R.drawable.w_respawn); break;
+						}
+					case Player.DARK :
+						switch(-b[loop1][loop2])
+						{
+							case Board.TILE_RESPAWN : figureImage = context.getResources().getDrawable(R.drawable.b_respawn); break;
+						}
+				}
+				if(figureImage != null)
+				{
+					int left = loop2 * FIGURE_WIDTH + getBounds().left;
+					int right = left + FIGURE_WIDTH;
+					int top = loop1 * FIGURE_WIDTH + getBounds().top;
+					int bottom = top + FIGURE_WIDTH;
+					figureImage.setBounds(left, top, right, bottom);
+					figureImage.draw(canvas);
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
@@ -29,6 +65,8 @@ public class BoardView extends GameObjectView {
 		
 		byte [][] b = board.getBoard();
 		boolean [][] legal = board.getBoardLegal();
+		
+		drawBackground(canvas);
 		
 		for(int loop1 = 0; loop1 < b.length; loop1++)
 		{

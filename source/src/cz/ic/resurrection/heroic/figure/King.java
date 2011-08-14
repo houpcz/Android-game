@@ -1,6 +1,7 @@
 package cz.ic.resurrection.heroic.figure;
 
 import cz.ic.resurrection.heroic.Board;
+import cz.ic.resurrection.heroic.Player;
 
 public class King extends Figure {
 
@@ -39,10 +40,16 @@ public class King extends Figure {
 	}
 
 	@Override
-	public void deathEvent(Board board, BoardPos pos) {
-		board.defeatPlayer(
-				Board.getFigureColor(board.getBoard()[pos.y][pos.x])
-				);
+	public void deathEvent(Board board, BoardPos pos, byte ownerColor) {
+		BoardPos respawnPlace = board.getFreeRespawnPlace(ownerColor);
+		if(respawnPlace == null)
+		{
+			board.defeatPlayer(
+					ownerColor
+					);
+		} else {
+			board.getBoard()[respawnPlace.y][respawnPlace.x] = (ownerColor == Player.DARK) ? -Board.FIG_KING : Board.FIG_KING;
+		}
 	}
 
 }

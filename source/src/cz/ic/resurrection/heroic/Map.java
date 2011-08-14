@@ -9,9 +9,9 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 public class Map {
-	public static byte[][] loadBoard(String name, Context context)
+	public static byte[][][] loadBoard(String name, Context context)
 	{
-		byte [][] board = new byte[Board.BOARD_WIDTH][Board.BOARD_WIDTH];
+		byte [][][] board = new byte[2][Board.BOARD_WIDTH][Board.BOARD_WIDTH];
 		
 		AssetManager asset = context.getAssets();
         InputStream inputStream = null;
@@ -29,7 +29,7 @@ public class Map {
                 for(loop3 = 0; loop3 < height; loop3++)
                     for(loop2 = 0; loop2 < width; loop2++)
                     {
-                        board[loop3][loop2] = getFigureNumber(readInt(in));
+                        board[loop1][loop3][loop2] = getFigureNumber(readInt(in), loop1);
                     }
         } catch (IOException e) {
             Log.e(GameCore.LOG_TAG, e.getMessage());
@@ -37,15 +37,27 @@ public class Map {
         
 		return board;
 	}
-	private static byte getFigureNumber(int figure)
+	private static byte getFigureNumber(int figure, int layer)
 	{
-		//Log.d(GameCore.LOG_TAG, figure + "");
-		if(figure == 0)
-			return 0;
-		if(figure < 24)
-			return (byte) -(figure - 7);
-		else
-			return (byte) (figure - 23);
+		//Log.e(GameCore.LOG_TAG, figure + " " + layer + " layer");
+		switch(layer)
+		{
+			case 1 :
+				if(figure == 0)
+					return 0;
+				if(figure < 24)
+					return (byte) -(figure - 7);
+				else
+					return (byte) (figure - 23);
+			case 0 :
+				if(figure == 0)
+					return 0;
+				if(figure < 24)
+					return (byte) -(figure - 7);
+				else
+					return (byte) (figure - 23);
+		}
+		return 0;
 	}
 	
 	private static int readInt(DataInputStream in)

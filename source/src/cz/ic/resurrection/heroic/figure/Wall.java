@@ -14,7 +14,7 @@ public class Wall extends Figure{
 		return false;
 	}
 	
-	public void deathEvent(Board board, BoardPos pos) {
+	public void deathEvent(Board board, BoardPos pos, byte ownerColor) {
 		board.killFigure(pos.y, pos.x);
 	}
 

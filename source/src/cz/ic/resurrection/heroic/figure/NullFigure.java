@@ -13,10 +13,4 @@ public class NullFigure extends Figure {
 	{
 		return false;
 	}
-
-	@Override
-	public void deathEvent(Board board, BoardPos pos) {
-
-	}
-
 }
