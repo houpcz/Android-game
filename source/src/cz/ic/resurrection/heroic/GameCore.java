@@ -45,6 +45,15 @@ public class GameCore extends Activity {
 	            case R.id.level6:
 	                gameThread.doStart(6);
 	                return true;
+	            case R.id.level7:
+	                gameThread.doStart(7);
+	                return true;
+	            case R.id.level8:
+	                gameThread.doStart(8);
+	                return true;
+	            case R.id.level9:
+	                gameThread.doStart(9);
+	                return true;
 	        }
 
 	        return false;
@@ -113,8 +122,16 @@ public class GameCore extends Activity {
 	    protected void onSaveInstanceState(Bundle outState) {
 	        // just have the View's thread save its state into our Bundle
 	        super.onSaveInstanceState(outState);
-	        //gameThread.saveState(outState);
+	        gameThread.saveState(outState);
 	        
 	        Log.w(LOG_TAG, "SIS called");
 	    }
+	    
+	    @Override
+	    public void onRestoreInstanceState(Bundle savedInstanceState) {
+	      super.onRestoreInstanceState(savedInstanceState);
+	      Log.w(LOG_TAG, "SIS restore");
+	      gameThread.restoreState(savedInstanceState);
+	    }
+
 	}

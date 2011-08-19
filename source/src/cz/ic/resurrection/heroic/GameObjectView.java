@@ -27,6 +27,8 @@ public class GameObjectView {
 		imageActive.setBounds(x, y, x + imageWidth, y + imageHeight);
 	}
 	
+	public int getImageWidth() { return imageWidth;};
+	
 	public void draw(Canvas c)
 	{
 		imageActive.draw(c);

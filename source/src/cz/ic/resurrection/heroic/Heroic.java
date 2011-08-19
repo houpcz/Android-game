@@ -20,7 +20,7 @@ public class Heroic implements HeroicInterface {
 	Player [] player;
 	Board board;
 	BoardView boardView;
-	int activePlayer;
+	byte activePlayer;
 	Handler handler;
 	Context context;
 	int level;
@@ -104,7 +104,7 @@ public class Heroic implements HeroicInterface {
 	
 	private void nextTurn()
 	{
-		activePlayer = (activePlayer + 1) % 2;
+		activePlayer = (byte) ((activePlayer + 1) % 2);
 		player[activePlayer].TakeTurn();
 		
 		board.setNextTurn();
@@ -147,5 +147,19 @@ public class Heroic implements HeroicInterface {
 
 	public int getGameState() {
 		return state;
+	}
+
+	
+	
+	public void restoreState(Bundle savedState) {
+		state = savedState.getInt("state");
+		activePlayer = savedState.getByte("activePlayer");
+		board.restoreState(savedState);
+	}
+
+	public void saveState(Bundle map) {
+		map.putInt("state", state);
+		map.putByte("activePlayer", activePlayer);
+		board.saveState(map);
 	}
 }

@@ -9,18 +9,16 @@ public class HeroicView {
 	Heroic heroic;
 	
 	BoardView boardView;
-	GameObjectView boardTop;
-	GameObjectView boardBottom;
+	HUDView boardTop;
+	HUDView boardBottom;
 
 	public HeroicView(Heroic heroic, Context context)
 	{
 		this.heroic = heroic;
 		boardView = new BoardView(context);
-		boardTop = new GameObjectView(context, R.drawable.board_marble_dark);
-		boardBottom = new GameObjectView(context, R.drawable.board_marble_light);
-		boardTop.setPos(0, 0);
+		boardTop = new HUDView(heroic, context, R.drawable.board_marble_dark, 0, 0);
+		boardBottom = new HUDView(heroic, context, R.drawable.board_marble_light, 0, boardTop.getBounds().height() + boardView.getBounds().height());
 		boardView.setPos(0, boardTop.getBounds().height());
-		boardBottom.setPos(0, boardTop.getBounds().height() + boardView.getBounds().height());
 	}
 	
 	public void draw(Canvas canvas)
@@ -32,7 +30,10 @@ public class HeroicView {
 	
 	public boolean onTouchEvent(MotionEvent event)
     {
-		return boardView.onTouchEvent(event);
+		if(heroic.getGameState() != Heroic.STATE_PLAYING)
+			return false;
+		
+		return boardView.onTouchEvent(event) || boardBottom.onTouchEvent(event);
     }
 	
 	public BoardView getBoardView()

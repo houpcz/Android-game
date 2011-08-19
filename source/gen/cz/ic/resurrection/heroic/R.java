@@ -18,34 +18,39 @@ public final class R {
         public static final int b_king=0x7f020004;
         public static final int b_mage=0x7f020005;
         public static final int b_respawn=0x7f020006;
-        public static final int b_summoner=0x7f020007;
-        public static final int b_thief=0x7f020008;
-        public static final int b_wall=0x7f020009;
-        public static final int board_marble=0x7f02000a;
-        public static final int board_marble_dark=0x7f02000b;
-        public static final int board_marble_light=0x7f02000c;
-        public static final int icon=0x7f02000d;
-        public static final int w_archer=0x7f02000e;
-        public static final int w_cavalery=0x7f02000f;
-        public static final int w_cleric=0x7f020010;
-        public static final int w_infantry=0x7f020011;
-        public static final int w_king=0x7f020012;
-        public static final int w_mage=0x7f020013;
-        public static final int w_respawn=0x7f020014;
-        public static final int w_summoner=0x7f020015;
-        public static final int w_thief=0x7f020016;
-        public static final int w_wall=0x7f020017;
+        public static final int b_spellbook=0x7f020007;
+        public static final int b_summoner=0x7f020008;
+        public static final int b_thief=0x7f020009;
+        public static final int b_wall=0x7f02000a;
+        public static final int board_marble=0x7f02000b;
+        public static final int board_marble_dark=0x7f02000c;
+        public static final int board_marble_light=0x7f02000d;
+        public static final int icon=0x7f02000e;
+        public static final int w_archer=0x7f02000f;
+        public static final int w_cavalery=0x7f020010;
+        public static final int w_cleric=0x7f020011;
+        public static final int w_infantry=0x7f020012;
+        public static final int w_king=0x7f020013;
+        public static final int w_mage=0x7f020014;
+        public static final int w_respawn=0x7f020015;
+        public static final int w_spellbook=0x7f020016;
+        public static final int w_summoner=0x7f020017;
+        public static final int w_thief=0x7f020018;
+        public static final int w_wall=0x7f020019;
     }
     public static final class id {
-        public static final int game=0x7f050008;
+        public static final int game=0x7f05000b;
         public static final int level1=0x7f050001;
         public static final int level2=0x7f050002;
         public static final int level3=0x7f050003;
         public static final int level4=0x7f050004;
         public static final int level5=0x7f050005;
         public static final int level6=0x7f050006;
-        public static final int main_text=0x7f050009;
-        public static final int menu_info=0x7f050007;
+        public static final int level7=0x7f050007;
+        public static final int level8=0x7f050008;
+        public static final int level9=0x7f050009;
+        public static final int main_text=0x7f05000c;
+        public static final int menu_info=0x7f05000a;
         public static final int menu_start=0x7f050000;
     }
     public static final class layout {
@@ -53,10 +58,10 @@ public final class R {
         public static final int main=0x7f030001;
     }
     public static final class string {
-        public static final int app_name=0x7f04000b;
-        public static final int heroic_dark_wins=0x7f04000a;
-        public static final int heroic_light_wins=0x7f040009;
-        public static final int heroic_press_menu=0x7f040008;
+        public static final int app_name=0x7f04000e;
+        public static final int heroic_dark_wins=0x7f04000d;
+        public static final int heroic_light_wins=0x7f04000c;
+        public static final int heroic_press_menu=0x7f04000b;
         public static final int menu_info=0x7f040000;
         public static final int menu_level1=0x7f040002;
         public static final int menu_level2=0x7f040003;
@@ -64,6 +69,9 @@ public final class R {
         public static final int menu_level4=0x7f040005;
         public static final int menu_level5=0x7f040006;
         public static final int menu_level6=0x7f040007;
+        public static final int menu_level7=0x7f040008;
+        public static final int menu_level8=0x7f040009;
+        public static final int menu_level9=0x7f04000a;
         public static final int menu_start=0x7f040001;
     }
 }

@@ -16,6 +16,12 @@
                   android:title="@string/menu_level5" />
             <item android:id="@+id/level6"
                   android:title="@string/menu_level6" />
+            <item android:id="@+id/level7"
+                  android:title="@string/menu_level7" />
+            <item android:id="@+id/level8"
+                  android:title="@string/menu_level8" />
+            <item android:id="@+id/level9"
+                  android:title="@string/menu_level9" />
           </menu>
     </item>
     <item android:id="@+id/menu_info"

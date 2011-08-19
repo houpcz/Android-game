@@ -1,6 +1,7 @@
 package cz.ic.resurrection.heroic;
 
 import android.content.Context;
+import android.os.Bundle;
 import cz.ic.resurrection.heroic.figure.Archer;
 import cz.ic.resurrection.heroic.figure.BoardPos;
 import cz.ic.resurrection.heroic.figure.Figure;
@@ -229,5 +230,31 @@ public class Board {
 			}
 		}
 		return null;
+	}
+
+	public void saveState(Bundle map) {
+		byte [] board1D = new byte[BOARD_WIDTH * BOARD_WIDTH];
+		for(byte loop1 = 0; loop1 < BOARD_WIDTH; loop1++)
+		{
+			for(byte loop2 = 0; loop2 < BOARD_WIDTH; loop2++)
+			{
+				board1D[loop1 * BOARD_WIDTH + loop2] = board[loop1][loop2];
+			}
+		}
+
+		map.putByteArray("board", board1D);
+		
+	}
+
+	public void restoreState(Bundle savedState) {
+		byte [] board1D = savedState.getByteArray("board");
+		for(byte loop1 = 0; loop1 < BOARD_WIDTH; loop1++)
+		{
+			for(byte loop2 = 0; loop2 < BOARD_WIDTH; loop2++)
+			{
+				board[loop1][loop2] = board1D[loop1 * BOARD_WIDTH + loop2];
+			}
+		}
+		setBoardLegal();
 	}
 }

@@ -73,7 +73,8 @@ class GameThread extends Thread {
      * @param savedState Bundle containing the game state
      */
     public synchronized void restoreState(Bundle savedState) {
-        synchronized (surfaceHolder) {        
+        synchronized (surfaceHolder) {    
+        	heroic.restoreState(savedState);
         }
     }
 
@@ -114,7 +115,7 @@ class GameThread extends Thread {
     public Bundle saveState(Bundle map) {
         synchronized (surfaceHolder) {
             if (map != null) {
-            	// save state
+            	heroic.saveState(map);
             }
         }
         return map;

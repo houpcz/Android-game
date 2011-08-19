@@ -26,7 +26,7 @@
           android:shadowDx="1.5"
           android:shadowDy="1.5"
           android:shadowColor="#ff000000"
-          android:textSize="24sp"/>
+          android:textSize="32sp"/>
      </RelativeLayout>
 
 </FrameLayout>
